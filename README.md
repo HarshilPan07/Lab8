@@ -15,5 +15,15 @@
 
 1. What do you expect to happen if we run our puppeteer tests with the field “headless” set to true?
 
+```I would expect it to run tests without a browser UI, so we wouldn't be able to actually observe what was happening.```
+
 2. What would your beforeAll callback look like if you wanted to start from the settings page before every test case?
 
+```
+describe('Basic user flow for SPA ', () => {
+    beforeAll(async () => {
+    await page.goto('http://127.0.0.1:5500');
+    history.pushState({ page: 'settings' }, '', './#settings');
+    await page.waitForTimeout(500);
+});
+```
