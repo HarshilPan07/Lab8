@@ -1,6 +1,6 @@
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
-    await page.goto('http://127.0.0.1:5500');
+    await page.goto('http://127.0.0.1:5500/');
     await page.waitForTimeout(500);
   });
 
@@ -29,7 +29,8 @@ describe('Basic user flow for SPA ', () => {
 
   it('Test3: Clicking first <journal-entry>, new URL should contain /#entry1', async () => {
     // implement test3: Clicking on the first journal entry should update the URL to contain “/#entry1”
-
+    await page.click('journal-entry');
+    expect(page.url()).toMatch('/#entry1');
   });
 
   it('Test4: On first Entry page - checking page header title', async () => {
@@ -60,7 +61,7 @@ describe('Basic user flow for SPA ', () => {
 
   it('Test7: Clicking the settings icon, new URL should contain #settings', async () => {
     // implement test7: Clicking on the settings icon should update the URL to contain “/#settings”
-
+    // page.click('[img]');
   });
 
   it('Test8: On Settings page - checking page header title', async () => {
