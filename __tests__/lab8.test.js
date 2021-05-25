@@ -137,6 +137,7 @@ describe('Basic user flow for SPA ', () => {
   it('Test14: Verify the url is correct when clicking on the second entry', async() => {
     const entries = await page.$$('journal-entry');
     await entries[1].click();
+    page.waitForTimeout(300);
     const url = await page.url();
     console.log(`url should be entry2: ${url}`);
     expect(url).toMatch('/#entry2');
