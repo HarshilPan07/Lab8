@@ -23,7 +23,7 @@
 describe('Basic user flow for SPA ', () => {
     beforeAll(async () => {
     await page.goto('http://127.0.0.1:5500');
-    history.pushState({ page: 'settings' }, '', './#settings');
+    await page.click('settings);
     await page.waitForTimeout(500);
 });
 ```
