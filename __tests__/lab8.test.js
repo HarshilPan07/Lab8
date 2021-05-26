@@ -130,6 +130,7 @@ describe('Basic user flow for SPA ', () => {
     const body_el = await page.$('body');
     const class_name = await (await body_el.getProperty('className')).jsonValue();
     console.log(`class_name=${class_name}`);
+    await page.waitForTimeout(300);
     expect(class_name).toBe('');
   });
 
@@ -137,7 +138,6 @@ describe('Basic user flow for SPA ', () => {
   it('Test14: Verify the url is correct when clicking on the second entry', async() => {
     const entries = await page.$$('journal-entry');
     await entries[1].click();
-    page.waitForTimeout(300);
     const url = await page.url();
     console.log(`url should be entry2: ${url}`);
     expect(url).toMatch('/#entry2');
@@ -153,29 +153,42 @@ describe('Basic user flow for SPA ', () => {
 
   // define and implement test16: Verify the entry page contents is correct when clicking on the second entry
   it('Test16: Verify the entry page contents is correct when clicking on the second entry', async() => {
-    const post_title_el = await page.$('h2');
+    const url = await page.url();
+    console.log('AT 16, URL is ' + url);
+    const post_title_el = await page.$('section > section.entry-title-section > h2');
     const post_title = await (await post_title_el.getProperty('textContent')).jsonValue();
     console.log(`post_title=${post_title}`);
     expect(post_title).toBe('Run, Forrest! Run!');
   });
 
   // create your own test 17
-  it('Test17: ', async() => {
-    
+  it('Test17: Clicking on settings from second entry should have <body> be settings', async() => {
+    const body_el = await page.$('body');
+    const class_name = await (await body_el.getProperty('className')).jsonValue();
+    console.log(`class_name=${class_name}`);
+    expect(class_name).toBe('settings');
   });
 
   // create your own test 18
-  it('Test18: ', async() => {
-    
+  it('Test18: Header should be Settings when clicked on settings icon', async() => {
+    const header_el = await page.$('h1');
+    const header_title = await (await header_el.getProperty('textContent')).jsonValue();
+    console.log(`header=${header_title}`);
+    expect(header_title).toBe('Settings');
   });
 
   // create your own test 19
-  it('Test19: ', async() => {
-    
+  it('Test19: Clicking h1 should bring back to home', async() => {
+    await page.click('h1');
+    expect(page.url()).toMatch('');
   });
 
   // create your own test 20
-  it('Test20: ', async() => {
-    
+  it('Test20: Verify URL when clicking on third post', async() => {
+    const entries = await page.$$('journal-entry');
+    await entries[2].click();
+    const url = await page.url();
+    console.log(`url should be entry2: ${url}`);
+    expect(url).toMatch('/#entry3');
   });
 });
